@@ -343,6 +343,30 @@ paket-files/
 **/__pycache__/
 *.pyc
 
+# Additional Python ignores for Skadi
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Skadi specific
+skadi.db
+skadi.db-journal
+artifacts/
+reports/*.pdf
+reports/*.json
+data/*.csv
+.pytest_cache/
+.coverage
+htmlcov/
+
 # Cake - Uncomment if you are using it
 #tools/**
 #!tools/packages.config

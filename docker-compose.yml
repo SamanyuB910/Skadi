@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  skadi:
+    build: .
+    container_name: skadi-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+      - ./reports:/app/reports
+      - ./skadi.db:/app/skadi.db
+    depends_on:
+      - postgres
+      - redis
+    command: uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
+
+  postgres:
+    image: timescale/timescaledb:latest-pg15
+    container_name: skadi-postgres
+    environment:
+      POSTGRES_DB: skadi
+      POSTGRES_USER: skadi
+      POSTGRES_PASSWORD: skadi_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: skadi-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
