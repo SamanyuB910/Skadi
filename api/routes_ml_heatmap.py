@@ -147,8 +147,8 @@ async def get_synthetic_heatmap() -> "HeatmapResponse":
     cols = list(range(1, 13))
     
     racks = []
-    for row in rows:
-        for col in cols:
+    for row_idx, row in enumerate(rows):
+        for col_idx, col in enumerate(cols, start=0):
             # Generate realistic synthetic data
             temp = round(random.uniform(20.0, 28.0), 1)
             power = round(random.uniform(180.0, 280.0), 1)
@@ -172,8 +172,8 @@ async def get_synthetic_heatmap() -> "HeatmapResponse":
             
             racks.append({
                 'id': f"{row}{col}",
-                'row': row,
-                'col': col,
+                'row': row_idx,  # Numeric index 0-7
+                'col': col_idx,  # Numeric index 0-11
                 'temp': temp,
                 'power': power,
                 'inlet_temp': inlet_temp,
@@ -181,7 +181,8 @@ async def get_synthetic_heatmap() -> "HeatmapResponse":
                 'delta_t': delta_t,
                 'deviation': deviation,
                 'status': status,
-                'color': color
+                'color': color,
+                'load': round(power / 280.0 * 100, 0)  # % of max power
             })
     
     # Calculate stats
