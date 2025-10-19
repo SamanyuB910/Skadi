@@ -65,13 +65,13 @@ interface HeatmapData {
 }
 
 const getColorForTemp = (temp: number) => {
-  if (temp < 22) return "bg-blue-500/80"
-  if (temp < 23) return "bg-blue-400/80"
-  if (temp < 24) return "bg-cyan-400/80"
-  if (temp < 25) return "bg-green-400/80"
-  if (temp < 26) return "bg-yellow-400/80"
-  if (temp < 27) return "bg-orange-400/80"
-  return "bg-red-500/80"
+  if (temp < 22) return "bg-blue-500"
+  if (temp < 23) return "bg-blue-400"
+  if (temp < 24) return "bg-cyan-400"
+  if (temp < 25) return "bg-green-400"
+  if (temp < 26) return "bg-yellow-400"
+  if (temp < 27) return "bg-orange-400"
+  return "bg-red-500"
 }
 
 export default function HeatMapPage() {
@@ -251,11 +251,13 @@ export default function HeatMapPage() {
                         key={col}
                         className={cn(
                           "flex-1 aspect-square rounded border border-border/50 flex flex-col items-center justify-center text-xs font-medium transition-all hover:scale-105 hover:z-10 hover:shadow-lg cursor-pointer",
-                          rack && getColorForTemp(rack.temp),
+                          rack ? getColorForTemp(rack.temp) : "bg-gray-800/50",
                         )}
-                        title={`${rack?.id}: ${rack?.temp}°C, Load: ${rack?.load}%, Status: ${rack?.status}`}
+                        title={rack ? `${rack.id}: ${rack.temp}°C, Load: ${rack.load}%, Status: ${rack.status}` : "No data"}
                       >
-                        <span className="text-background font-semibold">{rack?.temp}°</span>
+                        <span className="text-white font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                          {rack ? `${rack.temp}°` : "-"}
+                        </span>
                       </div>
                     )
                   })}
