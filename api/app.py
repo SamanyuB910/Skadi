@@ -8,6 +8,7 @@ from core.logging import logger
 from storage.db import init_db
 from api import ws, routes_telemetry, routes_state, routes_heatmap, routes_timeline
 from api import routes_ims, routes_optimizer, routes_actions, routes_mode, routes_demo, routes_reports
+from api import routes_ml_heatmap, routes_ml_analytics
 
 
 # Background tasks
@@ -210,6 +211,8 @@ app.include_router(ws.router, tags=["WebSocket"])
 app.include_router(routes_telemetry.router, prefix="/telemetry", tags=["Telemetry"])
 app.include_router(routes_state.router, prefix="/state", tags=["State"])
 app.include_router(routes_heatmap.router, prefix="/heatmap", tags=["Heatmap"])
+app.include_router(routes_ml_heatmap.router, prefix="/ml-heatmap", tags=["ML Heatmap"])
+app.include_router(routes_ml_analytics.router, prefix="/ml-analytics", tags=["ML Analytics"])
 app.include_router(routes_timeline.router, prefix="/timeline", tags=["Timeline"])
 app.include_router(routes_ims.router, prefix="/ims", tags=["IMS"])
 app.include_router(routes_optimizer.router, prefix="/optimizer", tags=["Optimizer"])

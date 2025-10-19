@@ -107,19 +107,24 @@ class IMSTrainer:
         
         return nominal_df
     
-    def train(self, df: pd.DataFrame) -> Dict[str, Any]:
+    def train(self, df: pd.DataFrame, skip_nominal_filter: bool = False) -> Dict[str, Any]:
         """Train IMS model on nominal data.
         
         Args:
             df: Training dataframe with telemetry data
+            skip_nominal_filter: If True, skip nominal window filtering
             
         Returns:
             Training metrics and metadata
         """
         logger.info(f"Starting IMS training with {len(df)} samples...")
         
-        # Filter to nominal windows
-        nominal_df = self.filter_nominal_windows(df)
+        # Filter to nominal windows (or skip if requested)
+        if skip_nominal_filter:
+            logger.warning("Skipping nominal window filtering - using all data")
+            nominal_df = df.copy()
+        else:
+            nominal_df = self.filter_nominal_windows(df)
         
         if len(nominal_df) < 100:
             raise IMSNotTrainedException(

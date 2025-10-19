@@ -359,13 +359,63 @@ build/
 # Skadi specific
 skadi.db
 skadi.db-journal
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
 artifacts/
 reports/*.pdf
 reports/*.json
+
+# Cache and temporary directories
+.cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Training data and datasets (IMPORTANT: Keep out of version control)
 data/*.csv
+data/**/*.csv
+data/kaggle/
+data/kaggle_real/
+data/training_*.csv
+data/validation.csv
+training_*.csv
+validation.csv
+
+# ML Models and pickles (large binary files)
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.onnx
+*.joblib
+models/
+*.model
+*.ckpt
+
+# Visualizations (generated files)
+visualizations/*.html
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# Testing and coverage
 .pytest_cache/
 .coverage
 htmlcov/
+test_*.py
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# Temporary analysis files
+test_ml_heatmap.py
+test_analytics_endpoint.py
 
 # Cake - Uncomment if you are using it
 #tools/**
